@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="battleship-style.css" />
+		<title>Battleship | Welcome</title>
+	</head>
+	<body>
+		<div class="wrapper">
+			<img src="insp/shipPNG.png" id="homeShip" />
+			<div class="waves">
+				<div id="wave1" class="wave"></div>
+				<div id="wave3" class="wave"></div>
+				<div id="wave2" class="wave"></div>
+			</div>
+			<div class="content">
+				<div>
+					<h1 class="logo">POTAPANJE BRODOVA</h1>
+					<form action="POST" id="nameForm">
+						<input
+							type="text"
+							name="playerOne"
+							id="playerOne"
+							placeholder="Prvi igrač..."
+							value=""
+							class="step playerName"
+						/>
+						<input
+							type="text"
+							name="playerTwo"
+							id="playerTwo"
+							placeholder="Drugi igrač..."
+							value=""
+							class="step playerName"
+						/>
+
+						<div>
+							<button
+								class="btn blue"
+								type="button"
+								onclick="nextStep()"
+							>
+								DALJE
+							</button>
+						</div>
+					</form>
+				</div>
+
+				<div class="footer">
+					Copyright &copy;
+					<a href="https://www.zmilos.com"> Miloš Živković</a>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="battleship-script.js"></script>
+</html>
