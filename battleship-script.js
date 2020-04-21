@@ -1,4 +1,4 @@
-let playerNames = [];
+let playerNames = ["Milos", "Martin"];
 
 //let currStep = 0;
 var rows = 10;
@@ -6,20 +6,23 @@ var cols = 10;
 var squareSize = 50;
 //resetForm();
 //showStep(currStep);
-var gameBoardContainer = document.getElementById("board");
+let board = document.getElementById("boardOne");
+let cnt = 1;
+let currPlayer = 0;
 
-for (i = 0; i < cols; i++) {
-	for (j = 0; j < rows; j++) {
-		var square = document.createElement("div");
-		gameBoardContainer.appendChild(square);
+for (i = 0; i < rows; i++) {
+	for (j = 0; j < cols; j++) {
+		let square = document.createElement("div");
+		board.appendChild(square);
 
-		square.id = "s" + j + i;
+		square.id = "s" + i + j;
 
-		var topPosition = j * squareSize;
-		var leftPosition = i * squareSize;
-
-		square.style.top = topPosition + "px";
-		square.style.left = leftPosition + "px";
+		square.tabIndex = cnt++;
+		/*
+		square.onclick = function (square) {
+			alert("You clicked the " + square.target.id + " square!");
+		};
+		*/
 	}
 }
 
@@ -64,4 +67,9 @@ function resetForm() {
 function saveName() {
 	let name = document.getElementById("playerName").value;
 	alert("HELLO " + name);
+}
+
+function setTitle() {
+	let title = document.getElementById("title");
+	title.innerHTML = "Trenutno bira: " + playerNames[currPlayer];
 }

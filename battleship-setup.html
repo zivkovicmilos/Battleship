@@ -6,12 +6,13 @@
 		<link rel="stylesheet" href="battleship-style.css" />
 		<title>Battleship | Setup</title>
 	</head>
-	<body>
+	<body onload="setTitle()">
 		<div class="battlefield">
 			<h1 class="logo">POTAPANJE BRODOVA</h1>
 
 			<div class="boards">
-				<div id="board"></div>
+				<h2 id="title">Trenutno bira:</h2>
+				<div id="boardOne" class="board"></div>
 			</div>
 		</div>
 	</body>
