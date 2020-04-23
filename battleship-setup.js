@@ -1,9 +1,17 @@
-let playerNames = ["Milos", "Martin"];
+let playerss = localStorage.getItem("players"); // TODO change
 
-let currStep = 0;
-resetForm();
-showStep(currStep);
-let currPlayer = 0;
+let playerNames = [];
+if (!playerss) {
+	// Nothing is saved in local storage, use fixed values
+	playerNames.push("Milos");
+	playerNames.push("Martin");
+} else {
+	playerss.forEach((player) => {
+		playerNames.push(player.getName());
+	});
+}
+
+let turn = 0;
 
 // BOARD LOGIC //
 
@@ -14,7 +22,7 @@ var numWritten = false;
 
 var alWrite = 0;
 var colWrite = 1;
-let board = document.getElementById("boardOne");
+let board = document.getElementById("playerBoard");
 drawBoard(board);
 //board = document.getElementById("boardTwo");
 //drawBoard(board);
@@ -67,13 +75,22 @@ function drawBoard(board) {
 	attachListeners();
 }
 
+var selectedCells = 0;
+let allSelected = new Set();
+let currSelected = new Set();
+
 function attachListeners() {
 	cells = document.getElementsByClassName("cell");
 	for (var i = 0; i < cells.length; i++)
 		(function (i) {
 			cells[i].onmousemove = function (e) {
 				if (e.buttons == 1) {
-					cells[i].style.backgroundColor = "green";
+					if (!allSelected.has(cells[i].id + "")) {
+						allSelected.add(cells[i].id + "");
+						currSelected.add(cells[i].id + "");
+						selectedCells++;
+					}
+					cells[i].classList.add("selected");
 					console.log("User dragged over " + cells[i].id);
 				}
 			};
@@ -93,7 +110,7 @@ let threeCell = 2;
 let twoCell = 3;
 let oneCell = 4;
 
-document.getElementById("boardNew").onmouseup = function (e) {
+document.getElementById("playerBoard").onmouseup = function (e) {
 	if (
 		selectedCells > 4 ||
 		selectedCells < 1 ||
@@ -106,45 +123,44 @@ document.getElementById("boardNew").onmouseup = function (e) {
 		console.log("Bad select");
 		clearSelection();
 		selectedCells = 0;
-		document.getElementById("selCells").innerHTML =
-			"SELECTED CELLS: " + selectedCells;
 	} else {
 		switch (selectedCells) {
 			case 4:
 				fourCell--;
+				document.getElementById("fourCell").innerHTML = fourCell;
 				break;
 			case 3:
 				threeCell--;
+				document.getElementById("threeCell").innerHTML = threeCell;
 				break;
 			case 2:
 				twoCell--;
+				document.getElementById("twoCell").innerHTML = twoCell;
 				break;
 			case 1:
 				oneCell--;
+				document.getElementById("oneCell").innerHTML = oneCell;
 				break;
 		}
 
 		let s = new Ship(selectedCells, currSelected);
-		let player = players[0]; // TODO switch to current turn player
+		let player = players[turn]; // TODO switch to current turn player
 		player.addShip(s);
 		s.printInfo();
 
 		selectedCells = 0;
-		document.getElementById("selCells").innerHTML =
-			"SELECTED CELLS: " + selectedCells;
 		markSelected(currSelected);
 		printMatrix(matrix);
 		currSelected.clear();
+
+		// Check if it's the other player's turn
+		if (!fourCell && !threeCell && !twoCell && !oneCell) {
+			let button = document.getElementById("nextPlayerBtn");
+			button.classList.remove("unavailable");
+			button.classList.add("blue");
+		}
 	}
 };
-
-/*
-	A B C D
-1	x x x x 
-2	x x x x 
-3	x x x x 
-
-*/
 
 let matrix = [];
 for (var i = 0; i < 10; i++) {
@@ -152,6 +168,51 @@ for (var i = 0; i < 10; i++) {
 	for (var j = 0; j < 10; j++) {
 		matrix[i][j] = 0;
 	}
+}
+
+function nextPlayerSelect() {
+	turn = (turn + 1) % 2;
+	reset();
+	setTitle();
+}
+
+function reset() {
+	// Reset the selection matrix
+	matrix = [];
+	for (var i = 0; i < 10; i++) {
+		matrix[i] = [];
+		for (var j = 0; j < 10; j++) {
+			matrix[i][j] = 0;
+		}
+	}
+
+	// Reset the number of available ships
+	fourCell = 1;
+	document.getElementById("fourCell").innerHTML = fourCell;
+
+	threeCell = 2;
+	document.getElementById("threeCell").innerHTML = threeCell;
+
+	twoCell = 3;
+	document.getElementById("twoCell").innerHTML = twoCell;
+
+	oneCell = 4;
+	document.getElementById("oneCell").innerHTML = oneCell;
+
+	// Reset the sets
+	selectedCells = 0;
+
+	allSelected.forEach((el) => {
+		let cell = document.getElementById(el);
+		cell.classList.remove("selected");
+	});
+	allSelected.clear();
+
+	// Reset the button
+	let button = document.getElementById("nextPlayerBtn");
+	button.classList.add("orange");
+	button.classList.add("unavailable");
+	button.innerHTML = "ZAPOČNI IGRU";
 }
 
 function letterToNum(letter) {
@@ -225,7 +286,7 @@ function clearSelection() {
 	currSelected.forEach((el) => {
 		let elem = document.getElementById("" + el);
 		elem.classList.remove("selected");
-		mySet.delete(el);
+		allSelected.delete(el);
 	});
 	currSelected.clear();
 }
@@ -306,52 +367,7 @@ player = new Player("Martin");
 players.push(player);
 player = players[0];
 
-// WELCOME PAGE //
-
-function showStep(n) {
-	var blck = document.getElementsByClassName("step");
-	console.log(blck);
-	blck[n].style.display = "block";
-}
-
-function nextStep(n) {
-	var blck = document.getElementsByClassName("step");
-
-	if (!validateForm()) return false;
-
-	playerNames[currStep] = blck[currStep].value;
-	currStep++;
-	if (currStep < 2) blck[currStep - 1].style.display = "none";
-
-	if (currStep >= blck.length) {
-		alert("FORM DONE" + " " + playerNames[0] + " " + playerNames[1]);
-		window.location.href = "battleship-setup.html";
-	}
-	showStep(currStep);
-}
-
-function validateForm() {
-	var blck = document.getElementsByClassName("step");
-
-	if (blck[currStep].value == "") {
-		blck[currStep].className += " invalid";
-		return false;
-	}
-
-	return true;
-}
-
-function resetForm() {
-	playerNames = [];
-	document.getElementById("nameForm").reset();
-}
-
-function saveName() {
-	let name = document.getElementById("playerName").value;
-	alert("HELLO " + name);
-}
-
 function setTitle() {
-	let title = document.getElementById("title");
-	title.innerHTML = "Trenutno bira: " + playerNames[currPlayer];
+	let title = document.getElementById("currentPlayer");
+	title.innerHTML = "Trenutno bira: " + playerNames[turn];
 }
