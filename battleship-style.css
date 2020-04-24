@@ -144,7 +144,7 @@ body > * {
 	display: none;
 }
 
-.playerName {
+.playerNameInput {
 	margin-top: 15px;
 	padding: 15px 10px;
 	border-radius: 10px;
@@ -289,6 +289,7 @@ input:focus {
 	color: white;
 	text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
 	font-size: 2em;
+	text-align: center;
 }
 
 .selected {
@@ -353,6 +354,75 @@ input:focus {
 }
 
 .unavailable {
-	opacity: 0.6;
+	opacity: 0.7;
 	pointer-events: none;
+}
+
+.inactive {
+	opacity: 0.7;
+}
+
+.flexGapRight {
+	margin-right: 50px;
+}
+
+.flexGapLeft {
+	margin-left: 50px;
+}
+
+.destroyed {
+	background-color: red;
+}
+
+.missed {
+	opacity: 0.6;
+}
+
+#winScreen {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	padding-top: 100px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.winScreenContent {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 40%;
+	border-radius: 10px;
+	border: none;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.trophy {
+	width: 50px;
+}
+
+.winTitle {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.winTitle h1 {
+	margin: 0 20px;
+	padding: 0;
+	font-family: "Alegreya", serif;
+	font-size: 36px;
+}
+
+.winScreenContent h2 {
+	margin-top: 30px;
+	font-family: "Alegreya", serif;
+	font-size: 46px;
 }

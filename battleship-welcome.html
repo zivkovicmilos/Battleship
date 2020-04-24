@@ -20,28 +20,21 @@
 			<div class="content">
 				<div>
 					<h1 class="logo">POTAPANJE BRODOVA</h1>
-					<form action="POST" id="nameForm">
+					<form action="" id="nameForm">
 						<input
 							type="text"
-							name="playerOne"
-							id="playerOne"
+							name="playerName"
+							id="playerName"
 							placeholder="Prvi igrač..."
 							value=""
-							class="step playerName"
-						/>
-						<input
-							type="text"
-							name="playerTwo"
-							id="playerTwo"
-							placeholder="Drugi igrač..."
-							value=""
-							class="step playerName"
+							class="playerNameInput"
 						/>
 
 						<div>
 							<button
 								class="btn blue"
 								type="button"
+								id="nextStepBtn"
 								onclick="nextStep()"
 							>
 								DALJE
@@ -57,5 +50,5 @@
 			</div>
 		</div>
 	</body>
-	<script src="battleship-script.js"></script>
+	<script src="battleship-welcome.js"></script>
 </html>

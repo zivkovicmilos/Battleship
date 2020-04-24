@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="battleship-style.css" />
+		<title>Battleship | Game</title>
+	</head>
+	<body>
+		<div class="selectArea">
+            <div id="winScreen">
+                <div class="winScreenContent">
+                    <div class="winTitle">
+                    <img src="battleship-assets/trophy.svg" class="trophy" />
+                    <h1>POBEDNIK</h1>
+                    <img src="battleship-assets/trophy.svg" class="trophy" />
+                    </div>
+                    <h2 id="winner">MILOS</h2>
+                    <button
+								class="btn orange"
+								type="button"
+								id="newGameBtn"
+								onclick="newGame()"
+							>
+								NOVA IGRA
+							</button>
+                </div>
+            </div>
+            <h2 class="title" id="currentPlayer">Trenutno na potezu: </h1>
+			<div class="boards">
+                <div id="boardOne" class="board flexGapRight"></div>
+				<div id="boardTwo" class="board flexGapLeft"></div>
+            </div>
+            <div class="footer center">
+				Copyright &copy;
+				<a href="https://www.zmilos.com"> Miloš Živković</a>
+			</div>
+		</div>
+	</body>
+	<script src="battleship-game.js"></script>
+</html>

@@ -1,15 +1,77 @@
-let playerss = localStorage.getItem("players"); // TODO change
+let p1Name = localStorage.getItem("p1Name");
+let p2Name = localStorage.getItem("p2Name");
 
-let playerNames = [];
-if (!playerss) {
-	// Nothing is saved in local storage, use fixed values
-	playerNames.push("Milos");
-	playerNames.push("Martin");
-} else {
-	playerss.forEach((player) => {
-		playerNames.push(player.getName());
-	});
+class Ship {
+	length;
+	// Cells where the boat is not destroyed.
+	// If its size == 0, the boat is destroyed
+	alivePositions;
+
+	constructor(length, positions) {
+		this.length = length;
+		this.alivePositions = new Array();
+
+		positions.forEach((pos) => {
+			this.alivePositions.push(pos);
+		});
+	}
+
+	isHit(position) {
+		return alivePositions.has(position);
+	}
+
+	markHit(position) {
+		this.alivePositions.delete(position);
+	}
+
+	printInfo() {
+		this.alivePositions.forEach((el) => {
+			console.log(el);
+		});
+	}
 }
+
+class Player {
+	name;
+	remainingShips;
+	points; // Maybe useless
+	ships;
+
+	constructor(name) {
+		this.name = name;
+		this.remainingShips = 10;
+		this.points = 0;
+		this.ships = new Array();
+	}
+
+	getName() {
+		return this.name;
+	}
+
+	getRemainingShips() {
+		return this.remainingShips;
+	}
+
+	getPoints() {
+		return this.points;
+	}
+
+	getShips() {
+		return this.ships;
+	}
+
+	addShip(ship) {
+		this.ships.push(ship);
+	}
+
+	tryHit(position) {
+		// TODO update position as hit!
+		return this.shipPositions.has(postion);
+	}
+}
+
+let players = [];
+initPlayers(p1Name, p2Name);
 
 let turn = 0;
 
@@ -144,7 +206,7 @@ document.getElementById("playerBoard").onmouseup = function (e) {
 		}
 
 		let s = new Ship(selectedCells, currSelected);
-		let player = players[turn]; // TODO switch to current turn player
+		let player = players[turn];
 		player.addShip(s);
 		s.printInfo();
 
@@ -157,7 +219,10 @@ document.getElementById("playerBoard").onmouseup = function (e) {
 		if (!fourCell && !threeCell && !twoCell && !oneCell) {
 			let button = document.getElementById("nextPlayerBtn");
 			button.classList.remove("unavailable");
-			button.classList.add("blue");
+
+			if (!button.classList.contains("orange")) {
+				button.classList.add("blue");
+			}
 		}
 	}
 };
@@ -171,9 +236,20 @@ for (var i = 0; i < 10; i++) {
 }
 
 function nextPlayerSelect() {
-	turn = (turn + 1) % 2;
-	reset();
-	setTitle();
+	turn++;
+	if (turn > 1) {
+		//localStorage.setItem("players", JSON.stringify(players));
+		localStorage.setItem("p1", JSON.stringify(players[0]));
+		localStorage.setItem("p1Ships", JSON.stringify(players[0].getShips()));
+
+		localStorage.setItem("p2", JSON.stringify(players[1]));
+		localStorage.setItem("p2Ships", JSON.stringify(players[1].getShips()));
+
+		window.location.href = "battleship-game.html";
+	} else {
+		reset();
+		setTitle();
+	}
 }
 
 function reset() {
@@ -246,11 +322,11 @@ function canPlace() {
 
 	for (let el of currSelected) {
 		col = letterToNum(el.charAt(0));
-		row = el.charAt(1) - 1;
+		row = el.substring(1) - 1;
 		console.log("Checking for " + row + "," + col);
 
 		for (var i = row - 1; i < row + 2; i++) {
-			if (i < 0) continue;
+			if (i < 0 || i > 9) continue;
 			for (var j = col - 1; j < col + 2; j++) {
 				if (j < 0 || (row == i && col == j) || j > 9) continue;
 				console.log("MATRIX[" + i + "][" + j + "] IS " + matrix[i][j]);
@@ -275,7 +351,7 @@ function printMatrix(mat) {
 function markSelected(selected) {
 	selected.forEach((el) => {
 		let col = letterToNum(el.charAt(0));
-		let row = el.charAt(1) - 1;
+		let row = el.substring(1) - 1;
 		console.log("Marking " + row + "," + col);
 
 		matrix[row][col] = 1;
@@ -291,83 +367,19 @@ function clearSelection() {
 	currSelected.clear();
 }
 
-class Ship {
-	length;
-	// Cells where the boat is not destroyed.
-	// If its size == 0, the boat is destroyed
-	alivePositions;
-
-	constructor(length, positions) {
-		this.length = length;
-		this.alivePositions = new Set();
-
-		positions.forEach((pos) => {
-			this.alivePositions.add(pos);
-		});
-	}
-
-	isHit(position) {
-		return alivePositions.has(position);
-	}
-
-	markHit(position) {
-		this.alivePositions.delete(position);
-	}
-
-	printInfo() {
-		this.alivePositions.forEach((el) => {
-			console.log(el);
-		});
-	}
-}
-
-class Player {
-	name;
-	remainingShips;
-	points; // Maybe useless
-	ships;
-
-	constructor(name) {
-		this.name = name;
-		this.remainingShips = 10;
-		this.points = 0;
-		this.ships = new Array();
-	}
-
-	getName() {
-		return this.name;
-	}
-
-	getRemainingShips() {
-		return this.remainingShips;
-	}
-
-	getPoints() {
-		return this.points;
-	}
-
-	getShips() {
-		return this.ships;
-	}
-
-	addShip(ship) {
-		this.ships.push(ship);
-	}
-
-	tryHit(position) {
-		// TODO update position as hit!
-		return this.shipPositions.has(postion);
-	}
-}
-
-let players = [];
-let player = new Player("Milos");
-players.push(player);
-player = new Player("Martin");
-players.push(player);
-player = players[0];
-
 function setTitle() {
 	let title = document.getElementById("currentPlayer");
-	title.innerHTML = "Trenutno bira: " + playerNames[turn];
+	title.innerHTML = "Trenutno bira: " + players[turn].name;
+}
+
+function initPlayers(p1Name, p2Name) {
+	if (!p1Name || !p2Name) {
+		// Nothing is saved in local storage, can't access setup
+		window.location.href = "battleship-welcome.html";
+	} else {
+		let player = new Player(p1Name);
+		players.push(player);
+		player = new Player(p2Name);
+		players.push(player);
+	}
 }
