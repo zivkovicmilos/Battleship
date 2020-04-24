@@ -125,7 +125,7 @@ function checkWin() {
 	if (!p1.remainingShips || !p2.remainingShips) {
 		// TODO add who won
 		let winScreen = document.getElementById("winScreen");
-		let winner = p1.remainingShips == 0 ? p1.name : p2.name;
+		let winner = p1.remainingShips == 0 ? p2.name : p1.name;
 
 		document.getElementById("winner").innerHTML = winner.toUpperCase();
 		winScreen.style.display = "block";
