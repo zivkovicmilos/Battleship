@@ -1,1 +1,1 @@
-/ /battleship-welcome.html 301
+/ /battleship-welcome.html
