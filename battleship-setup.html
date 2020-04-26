@@ -6,14 +6,14 @@
 		<link rel="stylesheet" href="battleship-style.css" />
 		<title>Battleship | Setup</title>
 	</head>
-	<body onload="setTitle()">
-		<div class="selectArea">
+	<body onload="setTitle()" draggable="false">
+		<div class="selectArea" draggable="false">
 			<!--<h1 class="logo">POTAPANJE BRODOVA</h1>-->
 
-			<div class="boards">
-				<div class="">
+			<div class="boards" draggable="false">
+				<div>
 					<h2 class="title" id="currentPlayer">Trenutno bira:</h2>
-					<div id="playerBoard" class="board"></div>
+					<div id="playerBoard" class="board" draggable="false"></div>
 				</div>
 				<div class="remaining">
 					<h2 class="title">Preostali brodovi</h2>

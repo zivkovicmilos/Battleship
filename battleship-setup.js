@@ -103,6 +103,7 @@ function drawBoard(board) {
 				square.innerHTML = alphabet[alCnt++];
 				square.classList.add("letter");
 				square.classList.add("unselectable");
+				square.draggable = false;
 				board.appendChild(square);
 				if (alCnt == 10) alCnt = 0;
 			} else {
@@ -112,6 +113,7 @@ function drawBoard(board) {
 					square.innerHTML = colNum++;
 					square.classList.add("number");
 					square.classList.add("unselectable");
+					square.draggable = false;
 
 					board.appendChild(square);
 					numWritten = true;
@@ -119,6 +121,7 @@ function drawBoard(board) {
 				} else {
 					let square = document.createElement("div");
 					square.classList.add("boardCell");
+					square.draggable = false;
 					board.appendChild(square);
 
 					square.id = "" + alphabet[alWrite++] + colWrite;
