@@ -371,7 +371,7 @@ input:focus {
 }
 
 .destroyed {
-	background-color: red;
+	background-color: #ff3626;
 }
 
 .missed {
