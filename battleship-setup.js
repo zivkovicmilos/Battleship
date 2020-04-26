@@ -121,6 +121,7 @@ function drawBoard(board) {
 				} else {
 					let square = document.createElement("div");
 					square.classList.add("boardCell");
+					square.classList.add("unselectable");
 					square.draggable = false;
 					board.appendChild(square);
 
