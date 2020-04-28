@@ -219,9 +219,7 @@ input:focus {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	height: 100%;
 	background-color: var(--seaBlue);
-	overflow: hidden;
 }
 
 .selectArea h1 {
@@ -311,6 +309,14 @@ input:focus {
 	margin-left: 40px;
 	font-family: "Alegreya", serif;
 	font-size: 18px;
+}
+
+.remainingShips {
+	display: flex;
+	justify-content: space-around;
+	font-family: "Alegreya", serif;
+	font-size: 18px;
+	width: 100%;
 }
 
 #remainingTable {
@@ -423,8 +429,14 @@ input:focus {
 	font-size: 36px;
 }
 
-.winScreenContent h2 {
+.winScreenContent h2,
+.winScreenContent h3 {
 	margin-top: 30px;
 	font-family: "Alegreya", serif;
 	font-size: 46px;
+}
+
+.winScreenContent h3 {
+	margin: 0;
+	font-size: 36px;
 }

@@ -12,6 +12,8 @@ var colNum = 1;
 var alCnt = 0;
 var numWritten = false;
 
+let turn = 0;
+
 var alWrite = 0;
 var colWrite = 1;
 let board = document.getElementById("boardOne");
@@ -23,6 +25,7 @@ numWritten = false;
 
 alWrite = 0;
 colWrite = 1;
+turn = 1;
 board = document.getElementById("boardTwo");
 drawBoard(board);
 
@@ -58,7 +61,11 @@ function drawBoard(board) {
 					square.classList.add("boardCell");
 					board.appendChild(square);
 
-					square.id = "" + alphabet[alWrite++] + colWrite;
+					square.id =
+						"" +
+						turn.toString() +
+						alphabet[alWrite++].toString() +
+						colWrite.toString();
 					if (alWrite == 10) {
 						alWrite = 0;
 						colWrite++;
@@ -74,10 +81,10 @@ function drawBoard(board) {
 	attachListeners();
 }
 
-let turn = 1;
 updateTurn();
 
 function updateTurn() {
+	hideShips();
 	let board;
 
 	turn = (turn + 1) % 2;
@@ -95,6 +102,8 @@ function updateTurn() {
 
 	let title = document.getElementById("currentPlayer");
 	title.innerHTML = "Trenutno na potezu: " + players[turn].name;
+
+	showShips();
 }
 
 let usedCells = new Set();
@@ -105,10 +114,14 @@ function attachListeners() {
 		(function (i) {
 			cells[i].onclick = function (e) {
 				console.log("User clicked on " + cells[i].id);
-				if (!usedCells.has(((turn + 1) % 2) + cells[i].id + "")) {
-					if (tryHit(cells[i].id)) {
+				if (!usedCells.has(cells[i].id + "")) {
+					if (tryHit(cells[i].id.substring(1))) {
 						console.log("Hit!");
+						if (cells[i].classList.contains("selected")) {
+							cells[i].classList.remove("selected");
+						}
 						cells[i].classList.add("destroyed");
+						updateScore();
 						checkWin();
 					} else {
 						console.log("Miss!");
@@ -123,11 +136,14 @@ function attachListeners() {
 
 function checkWin() {
 	if (!p1.remainingShips || !p2.remainingShips) {
-		// TODO add who won
 		let winScreen = document.getElementById("winScreen");
 		let winner = p1.remainingShips == 0 ? p2.name : p1.name;
 
 		document.getElementById("winner").innerHTML = winner.toUpperCase();
+		document.getElementById("winnerScore").innerHTML =
+			"Preostalo brodova: " + p1.remainingShips == 0
+				? p2.remainingShips
+				: p1.remainingShips;
 		winScreen.style.display = "block";
 	}
 }
@@ -171,6 +187,7 @@ function tryHit(position) {
 				if (!players[opp].ships[shipIndx].alivePositions.length) {
 					// Ship has been destroyed
 					players[opp].remainingShips--;
+					//updateScore();
 					players[opp].ships.splice(shipIndx, 1);
 					console.log("Ship destroyed!");
 				}
@@ -179,6 +196,33 @@ function tryHit(position) {
 		}
 	}
 	return false;
+}
+
+function showShips() {
+	players[turn].ships.forEach((ship) => {
+		ship.alivePositions.forEach((pos) => {
+			document.getElementById(turn + "" + pos).classList.add("selected");
+		});
+	});
+}
+
+function hideShips() {
+	players[turn].ships.forEach((ship) => {
+		ship.alivePositions.forEach((pos) => {
+			let el = document.getElementById(turn + "" + pos);
+			if (el.classList.contains("selected")) {
+				el.classList.remove("selected");
+			}
+		});
+	});
+}
+
+function updateScore() {
+	// Update the view
+	document.getElementById("p1Score").innerHTML =
+		"Preostalo brodova: " + players[0].remainingShips;
+	document.getElementById("p2Score").innerHTML =
+		"Preostalo brodova: " + players[1].remainingShips;
 }
 
 function newGame() {
