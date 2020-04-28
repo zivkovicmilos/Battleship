@@ -98,14 +98,17 @@ body > * {
 
 #wave1 {
 	background-image: url("/battleship-assets/wave1.svg");
+	animation-delay: -2s;
 	animation-duration: 12s;
 }
 #wave2 {
 	background-image: url("/battleship-assets/wave2.svg");
+	animation-delay: -2s;
 	animation-duration: 5s;
 }
 #wave3 {
 	background-image: url("/battleship-assets/wave3.svg");
+	animation-delay: -1s;
 	animation-duration: 3s;
 }
 @keyframes move {
