@@ -50,7 +50,7 @@ body > * {
 #homeShipTwo {
 	width: 10%;
 	align-self: center;
-	margin-bottom: -50px;
+	margin-bottom: -55px;
 	-webkit-animation: mover 2s infinite alternate;
 	animation: motion 2s infinite alternate;
 	margin-top: 30px;
@@ -91,6 +91,7 @@ body > * {
 	background-repeat: repeat-x;
 	background-position: left bottom;
 	transform-origin: 0 100% 0;
+	background-size: 350px 100%;
 
 	animation: move linear infinite;
 }
@@ -120,7 +121,7 @@ body > * {
 }
 .content {
 	height: 100%;
-	margin: -1px 0;
+	margin: -2px 0;
 	position: relative;
 	display: flex;
 
