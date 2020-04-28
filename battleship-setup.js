@@ -341,6 +341,38 @@ function canPlace() {
 			}
 		}
 	}
+
+	if (!inSameRow()) {
+		if (!inSameCol()) return false;
+	}
+
+	return true;
+}
+
+function inSameRow() {
+	let row = currSelected.values().next().value.substring(1);
+	console.log("Checking if it's all good in row " + row);
+
+	for (let el of currSelected) {
+		if (el.substring(1) !== row) {
+			console.log("Error: in same row! " + el.substring(1) + " " + row);
+			return false;
+		}
+	}
+	return true;
+}
+
+function inSameCol() {
+	let col = -1;
+
+	for (let el of currSelected) {
+		if (col < 0) {
+			col = el.charAt(0);
+		} else if (el.charAt(0) != col) {
+			console.log("Error: in same column! " + el.charAt(0) + " " + col);
+			return false;
+		}
+	}
 	return true;
 }
 
