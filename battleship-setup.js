@@ -160,6 +160,32 @@ function attachListeners() {
 					console.log("User dragged over " + cells[i].id);
 				}
 			};
+
+			/*
+			cells[i].oncontextmenu = function (e) {
+				e.preventDefault();
+				if (e.button == 2) {
+					console.log("RIGHT CLICK");
+					// Right mouse button, delete the ship if it exists
+					if (allSelected.has(cells[i].id + "")) {
+						// The cell was previously selected
+
+						for (let i = 0; i < players[turn].ships.length; i++) {
+							if (
+								players[turn].ships[i].alivePositions.includes(cells[i].id + "")
+							) {
+								let posToDelete = players[turn].ships[i].alivePositions;
+								pos.posToDelete.forEach((pos) => {
+									allSelected.delete(pos);
+								});
+								players[turn].ships.splice(i, 1); // Remove the ship
+								break;
+							}
+						}
+					}
+				}
+			};
+			*/
 		})(i);
 }
 
