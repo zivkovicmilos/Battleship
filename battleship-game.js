@@ -140,10 +140,9 @@ function checkWin() {
 		let winner = p1.remainingShips == 0 ? p2.name : p1.name;
 
 		document.getElementById("winner").innerHTML = winner.toUpperCase();
-		document.getElementById("winnerScore").innerHTML =
-			"Preostalo brodova: " + p1.remainingShips == 0
-				? p2.remainingShips
-				: p1.remainingShips;
+		document.getElementById("winnerScore").innerHTML = `Preostalo brodova: ${
+			p1.remainingShips == 0 ? p2.remainingShips : p1.remainingShips
+		}`;
 		winScreen.style.display = "block";
 	}
 }
@@ -161,8 +160,7 @@ function tryHit(position) {
 			shipPosIndx < players[opp].ships[shipIndx].alivePositions.length;
 			shipPosIndx++
 		) {
-			let localPos =
-				players[opp].ships[shipIndx].alivePositions[shipPosIndx];
+			let localPos = players[opp].ships[shipIndx].alivePositions[shipPosIndx];
 			console.log(
 				"Local position is " +
 					localPos +
@@ -177,9 +175,7 @@ function tryHit(position) {
 				// Remove it from alive positions
 				console.log("Removing " + localPos);
 				players[opp].ships[shipIndx].alivePositions.splice(
-					players[opp].ships[shipIndx].alivePositions.indexOf(
-						position
-					),
+					players[opp].ships[shipIndx].alivePositions.indexOf(position),
 					1
 				);
 
