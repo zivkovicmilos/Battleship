@@ -80,6 +80,7 @@ body > * {
 	position: relative;
 	overflow: hidden;
 	z-index: 1;
+	margin-bottom: -2px;
 }
 .wave {
 	width: 200%;
@@ -211,6 +212,7 @@ input:focus {
 
 .footer {
 	font-family: "Alegreya", serif;
+	margin-bottom: 10px;
 }
 
 .footer a {
