@@ -91,38 +91,89 @@ body > * {
 	bottom: 0;
 	background-repeat: repeat-x;
 	background-position: left bottom;
+	-webkit-transform-origin: 0 100% 0;
+	-ms-transform-origin: 0 100% 0;
 	transform-origin: 0 100% 0;
 	background-size: 350px 100%;
 
+	-webkit-animation: move linear infinite;
+	-moz-animation: move linear infinite;
 	animation: move linear infinite;
 }
 
 #wave1 {
-	background-image: url("/battleship-assets/wave1.svg");
+	background-image: url("./battleship-assets/wave1.svg");
+	-webkit-animation-delay: -2s;
+	-webkit-animation-duration: 12s;
+	-moz-animation-delay: -2s;
+	-moz-animation-duration: 12s;
 	animation-delay: -2s;
 	animation-duration: 12s;
 }
 #wave2 {
-	background-image: url("/battleship-assets/wave2.svg");
+	background-image: url("./battleship-assets/wave2.svg");
+	-webkit-animation-delay: -2s;
+	-webkit-animation-duration: 5s;
+	-moz-animation-delay: -2s;
+	-moz-animation-duration: 5s;
 	animation-delay: -2s;
 	animation-duration: 5s;
 }
 #wave3 {
-	background-image: url("/battleship-assets/wave3.svg");
+	background-image: url("./battleship-assets/wave3.svg");
+	-webkit-animation-delay: -1s;
+	-webkit-animation-duration: 3s;
+	-moz-animation-delay: -1s;
+	-moz-animation-duration: 3s;
 	animation-delay: -1s;
 	animation-duration: 3s;
 }
-@keyframes move {
+
+@-webkit-keyframes move {
 	0% {
+		-webkit-transform: translate(-175px, 0px) scale(1, 1);
 		transform: translate(-175px, 0px) scale(1, 1);
 	}
 	50% {
+		-webkit-transform: translate(-87px, 0px) scale(1, 0.5);
 		transform: translate(-87px, 0px) scale(1, 0.5);
 	}
 	100% {
+		-webkit-transform: translate(0px, 0px) scale(1, 1);
 		transform: translate(0px, 0px) scale(1, 1);
 	}
 }
+
+@-moz-keyframes move {
+	0% {
+		-webkit-transform: translate(-175px, 0px) scale(1, 1);
+		transform: translate(-175px, 0px) scale(1, 1);
+	}
+	50% {
+		-webkit-transform: translate(-87px, 0px) scale(1, 0.5);
+		transform: translate(-87px, 0px) scale(1, 0.5);
+	}
+	100% {
+		-webkit-transform: translate(0px, 0px) scale(1, 1);
+		transform: translate(0px, 0px) scale(1, 1);
+	}
+}
+
+@keyframes move {
+	0% {
+		-webkit-transform: translate(-175px, 0px) scale(1, 1);
+		transform: translate(-175px, 0px) scale(1, 1);
+	}
+	50% {
+		-webkit-transform: translate(-87px, 0px) scale(1, 0.5);
+		transform: translate(-87px, 0px) scale(1, 0.5);
+	}
+	100% {
+		-webkit-transform: translate(0px, 0px) scale(1, 1);
+		transform: translate(0px, 0px) scale(1, 1);
+	}
+}
+
 .content {
 	height: 100%;
 	margin: -2px 0;
