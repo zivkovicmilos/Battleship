@@ -2,7 +2,6 @@ localStorage.clear();
 let players = [];
 
 let turn = 0;
-//resetForm();
 
 let form = document.getElementById("nameForm");
 
@@ -20,14 +19,12 @@ function showStep() {
 
 	let input = document.getElementById("playerName");
 
-	//console.log(input);
-
 	if (!turn) {
-		input.placeholder = "Prvi igrač...";
+		input.placeholder = "Player one...";
 	} else {
-		input.placeholder = "Drugi igrač...";
+		input.placeholder = "Player two...";
 		let btn = document.getElementById("nextStepBtn");
-		btn.innerHTML = "ZAPOČNI IGRU";
+		btn.innerHTML = "START GAME";
 		btn.classList.remove("blue");
 		btn.classList.add("orange");
 	}
@@ -38,14 +35,11 @@ function nextStep() {
 
 	if (!validateForm()) return false;
 
-	//let player = new Player(input.value);
 	players.push(input.value);
 	turn++;
 
 	if (turn > 1) {
-		//alert("FORM DONE" + " " + playerNames[0] + " " + playerNames[1]);
 		localStorage.setItem("p1Name", players[0]);
-		console.log("added " + players[0]);
 		localStorage.setItem("p2Name", players[1]);
 		window.location.href = "battleship-setup.html";
 	}
@@ -57,7 +51,6 @@ function validateForm() {
 	let re = /\b[\w]+(?![^\w])\b/g;
 
 	let regOK = input.value.match(re) == null ? false : true;
-	console.log(input.value.match(re));
 
 	if (
 		input.value == "" ||
@@ -77,12 +70,6 @@ function validateForm() {
 }
 
 function resetForm() {
-	//localStorage.clear();
 	playerNames = [];
 	document.getElementById("nameForm").reset();
-}
-
-function saveName() {
-	let name = document.getElementById("playerName").value;
-	alert("HELLO " + name);
 }

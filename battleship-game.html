@@ -12,7 +12,7 @@
                 <div class="winScreenContent">
                     <div class="winTitle">
                     <img src="battleship-assets/trophy.svg" class="trophy" />
-                    <h1>POBEDNIK</h1>
+                    <h1>WINNER</h1>
                     <img src="battleship-assets/trophy.svg" class="trophy" />
                     </div>
 					<h2 id="winner"></h2>
@@ -23,18 +23,20 @@
 								id="newGameBtn"
 								onclick="newGame()"
 							>
-								NOVA IGRA
+								NEW GAME
 							</button>
                 </div>
             </div>
-            <h2 class="title" id="currentPlayer">Trenutno na potezu: </h1>
+            <h2 class="title" id="currentPlayer">On the move: </h1>
 			<div class="boards">
-                <div id="boardOne" class="board flexGapRight"></div>
-				<div id="boardTwo" class="board flexGapLeft"></div>
-			</div>
-			<div class="remainingShips">
-				<div id="p1Score">Preostalo brodova: 10</div>
-				<div id="p2Score">Preostalo brodova: 10</div>
+				<div class="boardGroup flexGapRight">
+					<div id="boardOne" class="board"></div>
+					<div id="p1Score" class="remainingText">Remaining ships: 10</div>
+				</div>
+				<div class="boardGroup flexGapLeft">
+					<div id="boardTwo" class="board"></div>
+					<div id="p2Score" class="remainingText">Remaining ships: 10</div>
+				</div>
 			</div>
             <div class="footer center">
 				Copyright &copy;

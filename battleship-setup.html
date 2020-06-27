@@ -8,45 +8,43 @@
 	</head>
 	<body onload="setTitle()" draggable="false">
 		<div class="selectArea" draggable="false">
-			<!--<h1 class="logo">POTAPANJE BRODOVA</h1>-->
-
 			<div class="boards" draggable="false">
 				<div>
-					<h2 class="title" id="currentPlayer">Trenutno bira:</h2>
+					<h2 class="title" id="currentPlayer">On the move:</h2>
 					<div id="playerBoard" class="board" draggable="false"></div>
 				</div>
 				<div class="remaining">
-					<h2 class="title">Preostali brodovi</h2>
+					<h2 class="title">Remaining ships</h2>
 					<h3 class="subTitle">
-						(Brodovi se postavljaju klikom i prevlačenjem miša po tabli)
+						(Boats are placed by clicking and dragging over the board)
 					</h3>
 					<table id="remainingTable">
 						<thead>
 							<tr class="tHeaders">
-								<th>Broj brodova</th>
-								<th>Tip broda</th>
-								<th>Veličina (u ćelijama)</th>
+								<th>Number of ships</th>
+								<th>Type of ship</th>
+								<th>Size (in cells)</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td id="fourCell">1</td>
-								<td>Najveći</td>
+								<td>Destroyer</td>
 								<td>4</td>
 							</tr>
 							<tr>
 								<td id="threeCell">2</td>
-								<td>Veliki</td>
+								<td>Large</td>
 								<td>3</td>
 							</tr>
 							<tr>
 								<td id="twoCell">3</td>
-								<td>Srednji</td>
+								<td>Medium</td>
 								<td>2</td>
 							</tr>
 							<tr>
 								<td id="oneCell">4</td>
-								<td>Mali</td>
+								<td>Small</td>
 								<td>1</td>
 							</tr>
 						</tbody>
@@ -57,7 +55,7 @@
 						type="button"
 						onclick="nextPlayerSelect()"
 					>
-						SLEDEĆI IGRAČ
+						NEXT PLAYER
 					</button>
 				</div>
 			</div>

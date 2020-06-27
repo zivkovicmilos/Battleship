@@ -86,8 +86,6 @@ var alWrite = 0;
 var colWrite = 1;
 let board = document.getElementById("playerBoard");
 drawBoard(board);
-//board = document.getElementById("boardTwo");
-//drawBoard(board);
 
 function drawBoard(board) {
 	for (i = 0; i < 10 + 1; i++) {
@@ -157,45 +155,10 @@ function attachListeners() {
 						selectedCells++;
 					}
 					cells[i].classList.add("selected");
-					console.log("User dragged over " + cells[i].id);
 				}
 			};
-
-			/*
-			cells[i].oncontextmenu = function (e) {
-				e.preventDefault();
-				if (e.button == 2) {
-					console.log("RIGHT CLICK");
-					// Right mouse button, delete the ship if it exists
-					if (allSelected.has(cells[i].id + "")) {
-						// The cell was previously selected
-
-						for (let i = 0; i < players[turn].ships.length; i++) {
-							if (
-								players[turn].ships[i].alivePositions.includes(cells[i].id + "")
-							) {
-								let posToDelete = players[turn].ships[i].alivePositions;
-								pos.posToDelete.forEach((pos) => {
-									allSelected.delete(pos);
-								});
-								players[turn].ships.splice(i, 1); // Remove the ship
-								break;
-							}
-						}
-					}
-				}
-			};
-			*/
 		})(i);
 }
-
-/*
-4 - 1 cells
-3 - 2 cells
-2 - 3 cells
-1 - 4 cells
-
-*/
 
 let fourCell = 1;
 let threeCell = 2;
@@ -212,7 +175,6 @@ document.getElementById("playerBoard").onmouseup = function (e) {
 		(selectedCells == 1 && !oneCell) ||
 		!canPlace(currSelected)
 	) {
-		console.log("Bad select");
 		clearSelection();
 		selectedCells = 0;
 	} else {
@@ -242,7 +204,7 @@ document.getElementById("playerBoard").onmouseup = function (e) {
 
 		selectedCells = 0;
 		markSelected(currSelected);
-		printMatrix(matrix);
+		//printMatrix(matrix);
 		currSelected.clear();
 
 		// Check if it's the other player's turn
@@ -268,7 +230,6 @@ for (var i = 0; i < 10; i++) {
 function nextPlayerSelect() {
 	turn++;
 	if (turn > 1) {
-		//localStorage.setItem("players", JSON.stringify(players));
 		localStorage.setItem("p1", JSON.stringify(players[0]));
 		localStorage.setItem("p1Ships", JSON.stringify(players[0].getShips()));
 
@@ -318,7 +279,7 @@ function reset() {
 	let button = document.getElementById("nextPlayerBtn");
 	button.classList.add("orange");
 	button.classList.add("unavailable");
-	button.innerHTML = "ZAPOČNI IGRU";
+	button.innerHTML = "START GAME";
 }
 
 function letterToNum(letter) {
@@ -353,15 +314,12 @@ function canPlace() {
 	for (let el of currSelected) {
 		col = letterToNum(el.charAt(0));
 		row = el.substring(1) - 1;
-		console.log("Checking for " + row + "," + col);
 
 		for (var i = row - 1; i < row + 2; i++) {
 			if (i < 0 || i > 9) continue;
 			for (var j = col - 1; j < col + 2; j++) {
 				if (j < 0 || (row == i && col == j) || j > 9) continue;
-				console.log("MATRIX[" + i + "][" + j + "] IS " + matrix[i][j]);
 				if (matrix[i][j]) {
-					console.log("Returning...");
 					return false;
 				}
 			}
@@ -377,11 +335,9 @@ function canPlace() {
 
 function inSameRow() {
 	let row = currSelected.values().next().value.substring(1);
-	console.log("Checking if it's all good in row " + row);
 
 	for (let el of currSelected) {
 		if (el.substring(1) !== row) {
-			console.log("Error: in same row! " + el.substring(1) + " " + row);
 			return false;
 		}
 	}
@@ -395,7 +351,6 @@ function inSameCol() {
 		if (col < 0) {
 			col = el.charAt(0);
 		} else if (el.charAt(0) != col) {
-			console.log("Error: in same column! " + el.charAt(0) + " " + col);
 			return false;
 		}
 	}
@@ -414,7 +369,6 @@ function markSelected(selected) {
 	selected.forEach((el) => {
 		let col = letterToNum(el.charAt(0));
 		let row = el.substring(1) - 1;
-		console.log("Marking " + row + "," + col);
 
 		matrix[row][col] = 1;
 	});
@@ -431,7 +385,7 @@ function clearSelection() {
 
 function setTitle() {
 	let title = document.getElementById("currentPlayer");
-	title.innerHTML = "Trenutno bira: " + players[turn].name;
+	title.innerHTML = "On the move: " + players[turn].name;
 }
 
 function initPlayers(p1Name, p2Name) {

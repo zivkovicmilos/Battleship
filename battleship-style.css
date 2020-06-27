@@ -376,12 +376,10 @@ input:focus {
 	font-size: 18px;
 }
 
-.remainingShips {
-	display: flex;
-	justify-content: space-around;
+.remainingText {
 	font-family: "Alegreya", serif;
 	font-size: 18px;
-	width: 100%;
+	margin-top: 1em;
 }
 
 #remainingTable {
@@ -504,4 +502,11 @@ input:focus {
 .winScreenContent h3 {
 	margin: 0;
 	font-size: 36px;
+}
+
+.boardGroup {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
